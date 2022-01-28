@@ -1,9 +1,9 @@
 //note: my computer wouldnt let me do the mouse loop thing 
 //because i needed the admin password but i couldnt get it so thats why its not there
 
-import java.awt.Robot;
+//import java.awt.Robot;
 
-Robot rbt;
+//Robot rbt;
 
 //textures 
 PImage mossStone, block;
@@ -62,32 +62,30 @@ void setup() {
 void draw() {
   background(0);
   camera(eyex, eyey, eyez, focusx, focusy, focusz, tiltx, tilty, tiltz);
-  drawFloor();
-  drawCeiling();
+  drawFloor(-2000, 2000, height, 100);
+  drawFloor (-2000, 2000, height-gridSize*4, 100);
   drawFocalPoint();
   controlCamera();
   drawMap();
+ // pointLight(0, 255, 0, eyex, eyey, eyez);
 }
 
-void drawFloor() {
-  stroke(255);
 
-  for (int x = -2000; x <= 2000; x = x + 100) {
-    //line(x, height, -2000, x, height, 2000);
-    //line (-2000, height, x, 2000, height, x);
-    texturedCube(x, height, -200, block, gridSize);
+void drawFloor(int start, int end, int level, int gap) {
+  stroke(255);
+  strokeWeight(1);
+  int x = start;
+  int z = start;
+  while (z < end) {
+    texturedCube(x, level, z, block, gap);
+    x = x + gap;
+    if (x >= end) {
+      x = start;
+      z = z + gap;
+    }
   }
 }
 
-void drawCeiling() {
-  stroke(255);
-
-  for (int x = -2000; x <= 2000; x = x + 100) {
-    //line(x, height-gridSize*3, -2000, x, height-gridSize*3, 2000);
-    //line (-2000, height-gridSize*3, x, 2000, height-gridSize*3, x);
-     texturedCube(x, height-gridSize*4, -200, block, gridSize);
-  }
-}
 
 void drawMap() {
   for (int x = 0; x < map.width; x++) {
@@ -146,8 +144,8 @@ void controlCamera() {
 
   focusy = eyey + tan(upDownHeadAngle) * 300;
 
-  if (mouseX > width-2) rbt.mouseMove(3, mouseY);
-  else  if (mouseX < 2) rbt.mouseMove(width-3, mouseY);
+  //if (mouseX > width-2) rbt.mouseMove(3, mouseY);
+  //else  if (mouseX < 2) rbt.mouseMove(width-3, mouseY);
 }
 void keyPressed() {
 
