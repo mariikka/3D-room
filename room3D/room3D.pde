@@ -50,12 +50,6 @@ void setup() {
 
   leftRightHeadAngle = radians(270);
   noCursor();
-  try {
-    rbt = new Robot();
-  }
-  catch(Exception e) {
-    e.printStackTrace();
-  }
 }
 
 
